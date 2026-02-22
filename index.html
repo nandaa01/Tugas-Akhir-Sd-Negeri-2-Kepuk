@@ -21,233 +21,7 @@
             }
         }
     </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Crimson Pro', serif; }
-        html { scroll-behavior: smooth; }
-        
-        .nav-blur { 
-            backdrop-filter: blur(12px); 
-            background-color: rgba(255, 255, 255, 0.95); 
-        }
-        
-        .slider-container { 
-            position: relative; 
-            height: 600px; 
-        }
-        
-        .slide { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            opacity: 0; 
-            transition: opacity 0.8s ease; 
-            display: flex;
-            align-items: center;
-        }
-        
-        .slide.active { 
-            opacity: 1; 
-            z-index: 1; 
-        }
-        
-        .dot { 
-            width: 12px; 
-            height: 12px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.4); 
-            transition: all 0.3s; 
-            cursor: pointer; 
-        }
-        
-        .dot.active { 
-            width: 36px; 
-            border-radius: 6px; 
-            background: white; 
-        }
-        
-        .card-hover { 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        
-        .card-hover:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.15); 
-        }
-        
-        .teacher-card { 
-            position: relative; 
-            overflow: hidden; 
-            transition: all 0.5s; 
-            background: white; 
-        }
-        
-        .teacher-card::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: -100%; 
-            width: 100%; 
-            height: 4px; 
-            background: linear-gradient(90deg, transparent, #3b82f6, transparent); 
-            transition: left 0.6s; 
-        }
-        
-        .teacher-card:hover::before { 
-            left: 100%; 
-        }
-        
-        .teacher-card:hover { 
-            transform: translateY(-6px); 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
-        }
-        
-        .teacher-photo-wrapper {
-            position: relative;
-            width: 160px;
-            margin: 0 auto 1.5rem;
-        }
-        
-        .teacher-photo { 
-            width: 160px; 
-            height: 160px; 
-            border-radius: 50%; 
-            border: 4px solid #f3f4f6; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 3.5rem; 
-            font-weight: 700; 
-            color: white; 
-            transition: all 0.4s; 
-        }
-        
-        .teacher-card:hover .teacher-photo { 
-            transform: scale(1.05); 
-            border-color: #3b82f6; 
-        }
-        
-        .teacher-badge { 
-            position: absolute; 
-            bottom: 5px; 
-            right: 5px; 
-            width: 45px; 
-            height: 45px; 
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
-            border-radius: 50%; 
-            border: 3px solid white; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.2rem; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-        }
-        
-        .filter-btn { 
-            position: relative; 
-            transition: all 0.3s; 
-            font-weight: 500; 
-        }
-        
-        .filter-btn.active { 
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(59,130,246,0.3); 
-        }
-        
-        .filter-btn:not(.active):hover { 
-            background: #f3f4f6; 
-            color: #1d4ed8; 
-        }
-        
-        .modal { 
-            display: none; 
-            position: fixed; 
-            z-index: 9999; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.75); 
-            backdrop-filter: blur(8px); 
-        }
-        
-        .modal.active { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            animation: fadeIn 0.3s; 
-        }
-        
-        .modal-content { 
-            background: white; 
-            border-radius: 20px; 
-            max-width: 700px; 
-            width: 92%; 
-            max-height: 90vh; 
-            overflow-y: auto; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
-            animation: slideUp 0.4s; 
-        }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; } 
-            to { opacity: 1; } 
-        }
-        
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(40px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        
-        @keyframes float { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-15px); } 
-        }
-        
-        .float-animation { 
-            animation: float 6s ease-in-out infinite; 
-        }
-        
-        .badge { 
-            display: inline-flex; 
-            align-items: center; 
-            padding: 0.375rem 0.75rem; 
-            border-radius: 9999px; 
-            font-size: 0.8125rem; 
-            font-weight: 600; 
-        }
-        
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 0.8s; 
-        }
-        
-        .reveal.active { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
-        
-        @media (max-width: 768px) {
-            .slider-container { 
-                height: 500px; 
-            }
-            
-            .teacher-photo-wrapper {
-                width: 120px;
-            }
-            
-            .teacher-photo { 
-                width: 120px; 
-                height: 120px; 
-                font-size: 2.5rem; 
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-white">
     
@@ -255,7 +29,7 @@
     <div class="bg-blue-900 text-white py-2 text-sm">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center">
             <div class="flex items-center space-x-4">
-                <span>✉️ info@sdn2kepuk.sch.id</span>
+                <span>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88e1e6eee7c8fbece6bae3edf8fde3a6fbebe0a6e1ec">[email&#160;protected]</a></span>
                 <span class="hidden sm:inline">📞 (0274) 123-4567</span>
             </div>
             <div class="text-xs">
@@ -265,39 +39,39 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="nav-blur sticky top-0 z-50 border-b shadow-md">
+    <nav class="nav-blur sticky top-0 z-50 border-b shadow-sm">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-4">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">SD</div>
+            <div class="flex justify-between items-center h-14">
+                <div class="flex items-center space-x-3">
+                    <img src="logo-sdn2-kepuk.jpeg" alt="Logo SD Negeri 2 Kepuk" class="w-9 h-9 object-contain">
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900">SD Negeri 2 Kepuk</h1>
-                        <p class="text-sm text-gray-600 font-medium">Unggul dalam Prestasi & Karakter</p>
+                        <h1 class="text-base font-bold text-gray-900 leading-tight">SD Negeri 2 Kepuk</h1>
+                        <p class="text-xs text-gray-500">Unggul dalam Prestasi & Karakter</p>
                     </div>
                 </div>
                 <div class="hidden lg:flex items-center space-x-1">
-                    <a href="#beranda" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Beranda</a>
-                    <a href="#profil" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Profil</a>
-                    <a href="#program" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Program</a>
-                    <a href="#guru" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Tenaga Pendidik</a>
-                    <a href="#prestasi" class="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Prestasi</a>
-                    <a href="#kontak" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md">Hubungi Kami</a>
+                    <a href="#beranda" class="px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Beranda</a>
+                    <a href="#profil" class="px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Profil</a>
+                    <a href="#guru" class="px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Tenaga Pendidik</a>
+                    <a href="#galeri" class="px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Galeri</a>
+                    <a href="#prestasi" class="px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition rounded-lg hover:bg-blue-50">Prestasi</a>
+                    <a href="#kontak" class="ml-2 px-4 py-1.5 text-sm bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-sm">Hubungi Kami</a>
                 </div>
-                <button class="lg:hidden text-gray-700 p-2" onclick="toggleMenu()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button class="lg:hidden text-gray-600 p-2" onclick="toggleMenu()">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
         </div>
         <div id="mobileMenu" class="hidden lg:hidden bg-white border-t">
-            <div class="px-4 py-4 space-y-2">
-                <a href="#beranda" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Beranda</a>
-                <a href="#profil" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Profil</a>
-                <a href="#program" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Program</a>
-                <a href="#guru" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Tenaga Pendidik</a>
-                <a href="#prestasi" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Prestasi</a>
-                <a href="#kontak" class="block px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg text-center">Hubungi Kami</a>
+            <div class="px-4 py-3 space-y-1">
+                <a href="#beranda" class="block px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Beranda</a>
+                <a href="#profil" class="block px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Profil</a>
+                <a href="#guru" class="block px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Tenaga Pendidik</a>
+                <a href="#galeri" class="block px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Galeri</a>
+                <a href="#prestasi" class="block px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg font-medium">Prestasi</a>
+                <a href="#kontak" class="block px-3 py-2 text-sm bg-blue-600 text-white font-semibold rounded-lg text-center">Hubungi Kami</a>
             </div>
         </div>
     </nav>
@@ -305,10 +79,10 @@
     <!-- Hero Section -->
     <section id="beranda" class="relative overflow-hidden">
         <div class="slider-container">
-            <div class="slide active bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800">
+            <div class="slide active" style="background: linear-gradient(135deg, rgba(29, 78, 216, 0.93) 0%, rgba(30, 64, 175, 0.93) 100%), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80') center/cover; background-blend-mode: overlay;">
                 <div class="max-w-7xl mx-auto px-4 w-full">
                     <div class="max-w-3xl text-white">
-                        <div class="inline-block px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-sm font-semibold mb-6">🎓 Lembaga Pendidikan Terakreditasi A</div>
+
                         <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 leading-tight">Membentuk Generasi Unggul & Berkarakter</h1>
                         <p class="text-xl md:text-2xl mb-10 text-blue-100 leading-relaxed">SD Negeri 2 Kepuk menyediakan pendidikan berkualitas dengan pendekatan holistik untuk mengembangkan potensi akademik dan karakter siswa</p>
                         <div class="flex flex-col sm:flex-row gap-4">
@@ -318,13 +92,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
                             </a>
-                            <a href="#profil" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-blue-700 transition">Pelajari Lebih Lanjut</a>
+                            <a href="#sambutan" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-blue-700 transition">Pelajari Lebih Lanjut</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="slide bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-700">
+            <div class="slide" style="background: linear-gradient(135deg, rgba(4, 120, 87, 0.93) 0%, rgba(13, 148, 136, 0.93) 100%), url('https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1920&q=80') center/cover; background-blend-mode: overlay;">
                 <div class="max-w-7xl mx-auto px-4 w-full">
                     <div class="max-w-3xl text-white">
                         <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 float-animation text-4xl">📚</div>
@@ -335,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="slide bg-gradient-to-br from-amber-600 via-orange-600 to-red-600">
+            <div class="slide" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.93) 0%, rgba(220, 38, 38, 0.93) 100%), url('https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?w=1920&q=80') center/cover; background-blend-mode: overlay;">
                 <div class="max-w-7xl mx-auto px-4 w-full">
                     <div class="max-w-3xl text-white">
                         <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 float-animation text-4xl">🏆</div>
@@ -358,24 +132,24 @@
     </section>
 
     <!-- Stats -->
-    <section class="py-16 bg-gradient-to-br from-blue-700 to-blue-900">
+    <section class="py-8 bg-gradient-to-br from-blue-700 to-blue-900">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="text-center reveal">
-                    <div class="text-5xl lg:text-6xl font-bold text-white mb-2">500+</div>
-                    <p class="text-blue-200 text-lg font-medium">Siswa Aktif</p>
+                    <div class="text-3xl lg:text-4xl font-bold text-white mb-1">500+</div>
+                    <p class="text-blue-200 text-sm font-medium">Siswa Aktif</p>
                 </div>
                 <div class="text-center reveal">
-                    <div class="text-5xl lg:text-6xl font-bold text-white mb-2">25+</div>
-                    <p class="text-blue-200 text-lg font-medium">Tenaga Pendidik</p>
+                    <div class="text-3xl lg:text-4xl font-bold text-white mb-1">25+</div>
+                    <p class="text-blue-200 text-sm font-medium">Tenaga Pendidik</p>
                 </div>
                 <div class="text-center reveal">
-                    <div class="text-5xl lg:text-6xl font-bold text-white mb-2">15+</div>
-                    <p class="text-blue-200 text-lg font-medium">Tahun Berpengalaman</p>
+                    <div class="text-3xl lg:text-4xl font-bold text-white mb-1">15+</div>
+                    <p class="text-blue-200 text-sm font-medium">Tahun Berpengalaman</p>
                 </div>
                 <div class="text-center reveal">
-                    <div class="text-5xl lg:text-6xl font-bold text-white mb-2">50+</div>
-                    <p class="text-blue-200 text-lg font-medium">Prestasi Diraih</p>
+                    <div class="text-3xl lg:text-4xl font-bold text-white mb-1">50+</div>
+                    <p class="text-blue-200 text-sm font-medium">Prestasi Diraih</p>
                 </div>
             </div>
         </div>
@@ -422,38 +196,57 @@
         </div>
     </section>
 
-    <!-- Program -->
-    <section id="program" class="py-24 bg-white">
+    <!-- Sambutan Kepala Sekolah -->
+    <section id="sambutan" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16 reveal">
-                <div class="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">Program Unggulan</div>
-                <h2 class="text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-4">Program Pendidikan Kami</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Berbagai program inovatif untuk mendukung pengembangan akademik dan karakter siswa</p>
+                <div class="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">Sambutan</div>
+                <h2 class="text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-4">Sambutan Kepala Sekolah</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Pesan dan harapan dari pimpinan SD Negeri 2 Kepuk</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card-hover bg-gradient-to-br from-blue-600 to-blue-700 p-8 rounded-2xl text-white shadow-lg reveal">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 text-3xl">💻</div>
-                    <h3 class="text-2xl font-bold mb-3">Literasi Digital</h3>
-                    <p class="text-blue-100 leading-relaxed">Pembelajaran teknologi informasi untuk era modern</p>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Foto & Identitas Kepala Sekolah -->
+                <div class="flex flex-col items-center reveal">
+                    <div class="mb-8">
+                        <div class="w-64 h-64 rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-100">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop" alt="Kepala Sekolah" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Drs. Supriyanto, M.Pd</h3>
+                        <p class="text-blue-600 font-semibold">Kepala SD Negeri 2 Kepuk</p>
+                    </div>
                 </div>
 
-                <div class="card-hover bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 rounded-2xl text-white shadow-lg reveal">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 text-3xl">🎨</div>
-                    <h3 class="text-2xl font-bold mb-3">Seni & Budaya</h3>
-                    <p class="text-emerald-100 leading-relaxed">Pengembangan bakat seni dan pelestarian budaya</p>
-                </div>
+                <!-- Isi Sambutan -->
+                <div class="reveal">
+                    <!-- Tanda Kutip Dekoratif -->
+                    <div class="text-blue-200 mb-4" style="font-size: 6rem; line-height: 1; font-family: Georgia, serif;">"</div>
+                    <div class="space-y-5 text-gray-700 leading-relaxed -mt-10">
+                        <p class="text-lg">
+                            Assalamu'alaikum Warahmatullahi Wabarakatuh. Puji syukur kehadirat Allah SWT atas segala rahmat dan karunia-Nya sehingga SD Negeri 2 Kepuk terus berkembang menjadi lembaga pendidikan yang berkualitas.
+                        </p>
+                        <p class="text-lg">
+                            Atas nama seluruh keluarga besar SD Negeri 2 Kepuk, kami mengucapkan selamat datang kepada seluruh orang tua, wali murid, dan masyarakat yang telah mempercayakan pendidikan putra-putri terbaik mereka kepada kami.
+                        </p>
+                        <p class="text-lg">
+                            Kami berkomitmen untuk terus meningkatkan kualitas pendidikan dengan menghadirkan lingkungan belajar yang aman, nyaman, dan menyenangkan. Setiap anak adalah anugerah yang memiliki potensi luar biasa, dan tugas kami adalah membantu mereka berkembang secara optimal — secara intelektual, emosional, maupun spiritual.
+                        </p>
+                        <p class="text-lg">
+                            Bersama orang tua dan masyarakat, kami yakin dapat mewujudkan generasi penerus bangsa yang cerdas, berkarakter mulia, dan siap menghadapi tantangan masa depan.
+                        </p>
+                    </div>
 
-                <div class="card-hover bg-gradient-to-br from-orange-600 to-orange-700 p-8 rounded-2xl text-white shadow-lg reveal">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 text-3xl">⚽</div>
-                    <h3 class="text-2xl font-bold mb-3">Olahraga</h3>
-                    <p class="text-orange-100 leading-relaxed">Pembinaan kesehatan jasmani dan prestasi olahraga</p>
-                </div>
-
-                <div class="card-hover bg-gradient-to-br from-purple-600 to-purple-700 p-8 rounded-2xl text-white shadow-lg reveal">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 text-3xl">🔬</div>
-                    <h3 class="text-2xl font-bold mb-3">Sains & Teknologi</h3>
-                    <p class="text-purple-100 leading-relaxed">Pembelajaran sains dengan metode eksperimen</p>
+                    <!-- Tanda Tangan Area -->
+                    <div class="mt-10 pt-8 border-t border-gray-100 flex items-center gap-6">
+                        <div>
+                            <p class="font-bold text-gray-900 text-lg">Wassalamu'alaikum Wr. Wb.</p>
+                            <p class="text-gray-500 text-sm mt-1">Kepuk, Bangsri, Jepara — 2026</p>
+                            <p class="text-blue-700 font-bold text-lg mt-4">Drs. Supriyanto, M.Pd</p>
+                            <p class="text-gray-500 text-sm">Kepala SD Negeri 2 Kepuk</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -480,116 +273,88 @@
                 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="kepala" data-id="1">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-blue-500 to-blue-700">DS</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop" alt="Drs. Supriyanto, M.Pd">
+                        </div>
                         <div class="teacher-badge">👔</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Drs. Supriyanto, M.Pd</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Kepala Sekolah</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-blue-100 text-blue-700">S2 Pendidikan</span>
-                            <span class="badge bg-purple-100 text-purple-700">25 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Memimpin dengan visi menciptakan generasi berprestasi dan berkarakter kuat</p>
-                        <button onclick="openModal(1)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Kepala Sekolah</p>
                     </div>
                 </div>
 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="guru" data-id="2">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-pink-500 to-pink-700">SM</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop" alt="Siti Maryam, S.Pd">
+                        </div>
                         <div class="teacher-badge">📚</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Siti Maryam, S.Pd</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Guru Kelas 1A</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-pink-100 text-pink-700">S1 PGSD</span>
-                            <span class="badge bg-emerald-100 text-emerald-700">15 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Spesialis pembelajaran anak usia dini dengan metode fun learning</p>
-                        <button onclick="openModal(2)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Guru Kelas 1A</p>
                     </div>
                 </div>
 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="guru" data-id="3">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-emerald-500 to-emerald-700">BW</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Budi Wijaya, S.Pd">
+                        </div>
                         <div class="teacher-badge">🎨</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Budi Wijaya, S.Pd</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Guru Kelas 2A</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-emerald-100 text-emerald-700">S1 PGSD</span>
-                            <span class="badge bg-orange-100 text-orange-700">12 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Ahli pengembangan kreativitas dengan pembelajaran berbasis proyek</p>
-                        <button onclick="openModal(3)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Guru Kelas 2A</p>
                     </div>
                 </div>
 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="mapel" data-id="4">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-purple-500 to-purple-700">RA</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop" alt="Rina Anggraini, S.Pd">
+                        </div>
                         <div class="teacher-badge">🌍</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Rina Anggraini, S.Pd</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Guru Bahasa Inggris</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-purple-100 text-purple-700">S1 B. Inggris</span>
-                            <span class="badge bg-blue-100 text-blue-700">10 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Berpengalaman mengajar dengan metode komunikatif dan interaktif</p>
-                        <button onclick="openModal(4)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Guru Bahasa Inggris</p>
                     </div>
                 </div>
 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="mapel" data-id="5">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-orange-500 to-orange-700">AH</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop" alt="Ahmad Hidayat, S.Pd">
+                        </div>
                         <div class="teacher-badge">⚽</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Ahmad Hidayat, S.Pd</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Guru Penjasorkes</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-orange-100 text-orange-700">S1 Penjas</span>
-                            <span class="badge bg-red-100 text-red-700">8 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Membina siswa berprestasi dalam berbagai cabang olahraga</p>
-                        <button onclick="openModal(5)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Guru Penjasorkes</p>
                     </div>
                 </div>
 
                 <div class="teacher-card rounded-2xl shadow-lg p-8 reveal" data-category="staf" data-id="6">
                     <div class="teacher-photo-wrapper">
-                        <div class="teacher-photo bg-gradient-to-br from-teal-500 to-teal-700">DL</div>
+                        <div class="teacher-photo">
+                            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop" alt="Dewi Lestari">
+                        </div>
                         <div class="teacher-badge">📋</div>
                     </div>
                     <div class="text-center">
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Dewi Lestari</h3>
-                        <p class="text-blue-600 font-semibold mb-3">Staf Tata Usaha</p>
-                        <div class="flex flex-wrap justify-center gap-2 mb-4">
-                            <span class="badge bg-teal-100 text-teal-700">SMK Administrasi</span>
-                            <span class="badge bg-amber-100 text-amber-700">7 Tahun</span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Mengelola administrasi sekolah dengan teliti dan profesional</p>
-                        <button onclick="openModal(6)" class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md">Lihat Profil Lengkap</button>
+                        <p class="text-blue-600 font-semibold">Staf Tata Usaha</p>
                     </div>
                 </div>
 
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+            <div class="grid grid-cols-3 gap-6 max-w-3xl mx-auto reveal">
                 <div class="text-center p-6 bg-white rounded-xl shadow-md border">
                     <div class="text-5xl font-bold text-blue-600 mb-2">25+</div>
                     <p class="text-gray-600 font-medium">Tenaga Pendidik</p>
-                </div>
-                <div class="text-center p-6 bg-white rounded-xl shadow-md border">
-                    <div class="text-5xl font-bold text-blue-600 mb-2">95%</div>
-                    <p class="text-gray-600 font-medium">Bersertifikat</p>
                 </div>
                 <div class="text-center p-6 bg-white rounded-xl shadow-md border">
                     <div class="text-5xl font-bold text-blue-600 mb-2">15+</div>
@@ -697,6 +462,157 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section id="galeri" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <div class="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    Galeri Foto
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-4">
+                    Dokumentasi Kegiatan
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+                    Momen-momen berharga dari berbagai kegiatan dan prestasi siswa SD Negeri 2 Kepuk
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="filterGallery(event, 'all')" class="gallery-category-btn active px-6 py-3 rounded-xl border-2 border-gray-200">
+                        Semua Foto
+                    </button>
+                    <button onclick="filterGallery(event, 'pembelajaran')" class="gallery-category-btn px-6 py-3 rounded-xl border-2 border-gray-200">
+                        Pembelajaran
+                    </button>
+                    <button onclick="filterGallery(event, 'prestasi')" class="gallery-category-btn px-6 py-3 rounded-xl border-2 border-gray-200">
+                        Prestasi
+                    </button>
+                    <button onclick="filterGallery(event, 'kegiatan')" class="gallery-category-btn px-6 py-3 rounded-xl border-2 border-gray-200">
+                        Kegiatan
+                    </button>
+                    <button onclick="filterGallery(event, 'fasilitas')" class="gallery-category-btn px-6 py-3 rounded-xl border-2 border-gray-200">
+                        Fasilitas
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+                <!-- Pembelajaran -->
+                <div class="gallery-item reveal" data-category="pembelajaran" onclick="openLightbox(0)">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800" alt="Kegiatan Belajar di Kelas">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Kegiatan Belajar di Kelas</h4>
+                        <p class="text-white/80 text-sm">Suasana pembelajaran interaktif di ruang kelas</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="pembelajaran" onclick="openLightbox(1)">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=800" alt="Praktikum Sains">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Praktikum Sains</h4>
+                        <p class="text-white/80 text-sm">Siswa belajar melalui eksperimen langsung</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="pembelajaran" onclick="openLightbox(2)">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800" alt="Lab Komputer">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Lab Komputer</h4>
+                        <p class="text-white/80 text-sm">Pembelajaran teknologi informasi</p>
+                    </div>
+                </div>
+
+                <!-- Prestasi -->
+                <div class="gallery-item reveal" data-category="prestasi" onclick="openLightbox(3)">
+                    <img src="https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?w=800" alt="Juara Lomba Akademik">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Juara Lomba Akademik</h4>
+                        <p class="text-white/80 text-sm">Prestasi gemilang di tingkat kabupaten</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="prestasi" onclick="openLightbox(4)">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="Juara Olahraga">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Juara Olahraga</h4>
+                        <p class="text-white/80 text-sm">Tim futsal meraih medali emas</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="prestasi" onclick="openLightbox(5)">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800" alt="Penghargaan Sekolah">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Penghargaan Sekolah</h4>
+                        <p class="text-white/80 text-sm">Sekolah berprestasi tingkat provinsi</p>
+                    </div>
+                </div>
+
+                <!-- Kegiatan -->
+                <div class="gallery-item reveal" data-category="kegiatan" onclick="openLightbox(6)">
+                    <img src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=800" alt="Upacara Bendera">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Upacara Bendera</h4>
+                        <p class="text-white/80 text-sm">Pembiasaan disiplin setiap hari Senin</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="kegiatan" onclick="openLightbox(7)">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800" alt="Pramuka">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Kegiatan Pramuka</h4>
+                        <p class="text-white/80 text-sm">Membentuk karakter kepemimpinan</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="kegiatan" onclick="openLightbox(8)">
+                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800" alt="Pentas Seni">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Pentas Seni</h4>
+                        <p class="text-white/80 text-sm">Menampilkan kreativitas siswa</p>
+                    </div>
+                </div>
+
+                <!-- Fasilitas -->
+                <div class="gallery-item reveal" data-category="fasilitas" onclick="openLightbox(9)">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800" alt="Ruang Kelas Modern">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Ruang Kelas Modern</h4>
+                        <p class="text-white/80 text-sm">Ruang kelas ber-AC dengan LCD proyektor</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="fasilitas" onclick="openLightbox(10)">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800" alt="Perpustakaan">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Perpustakaan</h4>
+                        <p class="text-white/80 text-sm">Koleksi buku lengkap dan ruang baca nyaman</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal" data-category="fasilitas" onclick="openLightbox(11)">
+                    <img src="https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?w=800" alt="Lapangan Olahraga">
+                    <div class="gallery-overlay">
+                        <h4 class="text-white font-bold text-lg mb-1">Lapangan Olahraga</h4>
+                        <p class="text-white/80 text-sm">Lapangan multifungsi untuk berbagai olahraga</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="handleLightboxClick(event)">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1); event.stopPropagation();">❮</button>
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption">
+                <h4 id="lightboxTitle" class="font-bold text-lg text-gray-900 mb-1"></h4>
+                <p id="lightboxDescription" class="text-gray-600"></p>
+            </div>
+            <button class="lightbox-nav lightbox-next" onclick="changeImage(1); event.stopPropagation();">❯</button>
+        </div>
+    </div>
+
     <!-- Kontak -->
     <section id="kontak" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
@@ -714,7 +630,7 @@
                             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">📍</div>
                             <div>
                                 <p class="font-bold text-gray-900 mb-1">Alamat</p>
-                                <p class="text-gray-600">Jl. Pendidikan No. 123, Kepuk, Kecamatan Kepuk, Jawa Tengah</p>
+                                <p class="text-gray-600">Jl. Raya Kepuk - Plajan, Kabupaten Jepara, Jawa Tengah</p>
                             </div>
                         </div>
 
@@ -730,7 +646,7 @@
                             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">✉️</div>
                             <div>
                                 <p class="font-bold text-gray-900 mb-1">Email</p>
-                                <p class="text-gray-600">info@sdn2kepuk.sch.id</p>
+                                <p class="text-gray-600"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f161119103f0c1b114d141a0f0a14510c1c1751161b">[email&#160;protected]</a></p>
                             </div>
                         </div>
 
@@ -746,26 +662,16 @@
                 </div>
 
                 <div class="reveal">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Kirim Pesan</h3>
-                    <form class="space-y-5" onsubmit="handleSubmit(event)">
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
-                            <input type="text" placeholder="Masukkan nama lengkap" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                            <input type="email" placeholder="email@example.com" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon</label>
-                            <input type="tel" placeholder="08xx-xxxx-xxxx" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Pesan</label>
-                            <textarea placeholder="Tulis pesan Anda" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-md">Kirim Pesan</button>
-                    </form>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Lokasi Sekolah</h3>
+                    <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.6798204148004!2d110.77667867355963!3d-6.562038664145062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e712127041066b5%3A0xfa8486692f96fd11!2sSD%20Negeri%202%20Kepuk!5e0!3m2!1sid!2sid!4v1770814606089!5m2!1sid!2sid" width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                        <p class="text-sm text-blue-900 font-medium">
+                            <span class="inline-block mr-2">📍</span>
+                            Klik pada peta untuk membuka di Google Maps dan mendapatkan petunjuk arah
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -777,7 +683,7 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="md:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center text-white font-bold">SD</div>
+                        <img src="logo-sdn2-kepuk.jpeg" alt="Logo SD Negeri 2 Kepuk" class="w-12 h-12 object-contain">
                         <h3 class="text-xl font-bold">SD Negeri 2 Kepuk</h3>
                     </div>
                     <p class="text-gray-400 leading-relaxed mb-4">Lembaga pendidikan yang berkomitmen membentuk generasi penerus bangsa yang cerdas, berkarakter, dan berakhlak mulia.</p>
@@ -799,7 +705,7 @@
                     <ul class="space-y-2">
                         <li><a href="#beranda" class="text-gray-400 hover:text-white transition">Beranda</a></li>
                         <li><a href="#profil" class="text-gray-400 hover:text-white transition">Profil Sekolah</a></li>
-                        <li><a href="#program" class="text-gray-400 hover:text-white transition">Program</a></li>
+
                         <li><a href="#guru" class="text-gray-400 hover:text-white transition">Tenaga Pendidik</a></li>
                         <li><a href="#prestasi" class="text-gray-400 hover:text-white transition">Prestasi</a></li>
                     </ul>
@@ -809,8 +715,8 @@
                     <h4 class="text-lg font-bold mb-4">Kontak</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
                         <li>📞 (0274) 123-4567</li>
-                        <li>✉️ info@sdn2kepuk.sch.id</li>
-                        <li>📍 Jl. Pendidikan No. 123, Kepuk</li>
+                        <li>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d24232b220d3e29237f26283d3826633e2e25632429">[email&#160;protected]</a></li>
+                        <li>📍 Jl. Raya Kepuk - Plajan, Kabupaten Jepara, Jawa Tengah</li>
                     </ul>
                 </div>
             </div>
@@ -821,249 +727,6 @@
         </div>
     </footer>
 
-    <script>
-        // Slider functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        let autoSlideInterval;
-
-        function showSlide(index) {
-            slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            if (index >= slides.length) currentSlide = 0;
-            if (index < 0) currentSlide = slides.length - 1;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide++;
-            showSlide(currentSlide);
-            resetAutoSlide();
-        }
-
-        function previousSlide() {
-            currentSlide--;
-            showSlide(currentSlide);
-            resetAutoSlide();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            showSlide(currentSlide);
-            resetAutoSlide();
-        }
-
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 6000);
-        }
-
-        function resetAutoSlide() {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        }
-
-        startAutoSlide();
-
-        // Mobile menu
-        function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    document.getElementById('mobileMenu').classList.add('hidden');
-                }
-            });
-        });
-
-        // Scroll reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // Teacher filter - Fixed version
-        function filterTeachers(event, category) {
-            const cards = document.querySelectorAll('.teacher-card');
-            const btns = document.querySelectorAll('.filter-btn');
-            
-            btns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            cards.forEach((card, i) => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, i * 50);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => card.style.display = 'none', 300);
-                }
-            });
-        }
-
-        // Teacher data
-        const teacherData = {
-            1: { 
-                name: 'Drs. Supriyanto, M.Pd', 
-                position: 'Kepala Sekolah', 
-                education: 'S2 Manajemen Pendidikan - UNY', 
-                experience: '25 Tahun', 
-                bio: 'Memimpin SD Negeri 2 Kepuk sejak 2018 dengan visi menciptakan sekolah unggul dalam prestasi dan karakter.', 
-                achievements: ['Kepala Sekolah Berprestasi Tingkat Kabupaten 2022', 'Sertifikasi Kepala Sekolah Nasional', 'Pelatihan Manajemen Berbasis Sekolah', 'Workshop Pengembangan Kurikulum Merdeka'], 
-                contact: { email: 'supriyanto@sdn2kepuk.sch.id', phone: '(0274) 123-4567' } 
-            },
-            2: { 
-                name: 'Siti Maryam, S.Pd', 
-                position: 'Guru Kelas 1A', 
-                education: 'S1 PGSD - UNY', 
-                experience: '15 Tahun', 
-                bio: 'Spesialis pembelajaran anak usia dini dengan metode fun learning yang menyenangkan dan efektif.', 
-                achievements: ['Guru Berprestasi Kecamatan 2024', 'Juara 1 Lomba Inovasi Pembelajaran 2023', 'Sertifikasi Pendidik Profesional', 'Pelatihan Pembelajaran Abad 21'], 
-                contact: { email: 'siti.maryam@sdn2kepuk.sch.id', phone: '-' } 
-            },
-            3: { 
-                name: 'Budi Wijaya, S.Pd', 
-                position: 'Guru Kelas 2A', 
-                education: 'S1 PGSD - UNY', 
-                experience: '12 Tahun', 
-                bio: 'Ahli pengembangan kreativitas siswa melalui pembelajaran berbasis proyek dan seni.', 
-                achievements: ['Pembina Ekstrakurikuler Seni Terbaik 2023', 'Pelatihan Project Based Learning', 'Workshop Kreativitas Anak', 'Sertifikasi Pendidik Profesional'], 
-                contact: { email: 'budi.wijaya@sdn2kepuk.sch.id', phone: '-' } 
-            },
-            4: { 
-                name: 'Rina Anggraini, S.Pd', 
-                position: 'Guru Bahasa Inggris', 
-                education: 'S1 Pendidikan Bahasa Inggris - UNS', 
-                experience: '10 Tahun', 
-                bio: 'Berpengalaman mengajar dengan metode komunikatif dan interaktif untuk anak.', 
-                achievements: ['TOEFL Score: 550', 'Pelatihan Teaching English for Young Learners', 'Workshop Multimedia Learning', 'Sertifikasi Pendidik Profesional'], 
-                contact: { email: 'rina.anggraini@sdn2kepuk.sch.id', phone: '-' } 
-            },
-            5: { 
-                name: 'Ahmad Hidayat, S.Pd', 
-                position: 'Guru Penjasorkes', 
-                education: 'S1 Pendidikan Jasmani - UNY', 
-                experience: '8 Tahun', 
-                bio: 'Pelatih olahraga yang membawa siswa meraih prestasi di berbagai turnamen olahraga.', 
-                achievements: ['Pelatih Futsal Bersertifikat Lisensi C', 'Wasit Atletik Tingkat Kabupaten', 'Guru Olahraga Berprestasi 2023', 'Sertifikasi Pendidik Profesional'], 
-                contact: { email: 'ahmad.hidayat@sdn2kepuk.sch.id', phone: '-' } 
-            },
-            6: { 
-                name: 'Dewi Lestari', 
-                position: 'Staf Tata Usaha', 
-                education: 'SMK Administrasi Perkantoran', 
-                experience: '7 Tahun', 
-                bio: 'Mengelola administrasi sekolah dengan profesional, teliti, dan ramah dalam melayani.', 
-                achievements: ['Pelatihan Administrasi Sekolah Tingkat Provinsi', 'Sertifikasi Komputer Perkantoran', 'Workshop Pelayanan Prima', 'Pelatihan Sistem Informasi Manajemen Sekolah'], 
-                contact: { email: 'dewi.lestari@sdn2kepuk.sch.id', phone: '-' } 
-            }
-        };
-
-        // Modal functions
-        function openModal(id) {
-            const t = teacherData[id];
-            document.getElementById('modalName').textContent = t.name;
-            document.getElementById('modalContent').innerHTML = `
-                <div class="text-center mb-6">
-                    <h4 class="text-2xl font-bold text-blue-600 mb-2">${t.position}</h4>
-                    <p class="text-gray-600">${t.education}</p>
-                </div>
-                <div class="space-y-6">
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h5 class="font-bold text-gray-900 mb-2 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Pengalaman Mengajar
-                        </h5>
-                        <p class="text-gray-700">${t.experience} mengajar di bidang pendidikan</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h5 class="font-bold text-gray-900 mb-2 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            Profil
-                        </h5>
-                        <p class="text-gray-700">${t.bio}</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h5 class="font-bold text-gray-900 mb-3 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                            </svg>
-                            Prestasi & Sertifikasi
-                        </h5>
-                        <ul class="space-y-2">
-                            ${t.achievements.map(a => `
-                                <li class="text-gray-700 flex items-start">
-                                    <svg class="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    ${a}
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    <div class="bg-blue-50 rounded-xl p-6">
-                        <h5 class="font-bold text-gray-900 mb-2 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                            Informasi Kontak
-                        </h5>
-                        <div class="space-y-2">
-                            <p class="text-gray-700"><span class="font-semibold">Email:</span> ${t.contact.email}</p>
-                            ${t.contact.phone !== '-' ? `<p class="text-gray-700"><span class="font-semibold">Telepon:</span> ${t.contact.phone}</p>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function handleModalClick(event) {
-            if (event.target.id === 'modal') {
-                closeModal();
-            }
-        }
-
-        // Close modal with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Form submit handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('Terima kasih! Pesan Anda telah dikirim. Kami akan segera menghubungi Anda.');
-            event.target.reset();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
